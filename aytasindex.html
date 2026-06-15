@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KOBRA Kickbox Academy — Gücünü Ringde Bul</title>
+<meta name="description" content="Kobra Kickbox Academy: Profesyonel kickbox eğitmenleriyle başlangıçtan ringe. İlk dersin ücretsiz, hemen WhatsApp'tan ulaş." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     TOKENS
+     ============================================================ */
+  :root{
+    --bg:        #0b0b0d;
+    --bg-soft:   #131316;
+    --bg-elev:   #1a1a1e;
+    --bg-card:   #1d1d22;
+    --text:      #f4f1e9;
+    --text-dim:  #c9c6bd;
+    --text-mute: #8d8b91;
+    --accent:    #e63a21;
+    --accent-2:  #ff6a45;
+    --gold:      #d4a537;
+    --border:    rgba(244,241,233,.08);
+    --border-2:  rgba(244,241,233,.16);
+
+    --f-display: 'Bebas Neue', Impact, sans-serif;
+    --f-body:    'Inter', -apple-system, sans-serif;
+    --f-mono:    'Space Mono', monospace;
+
+    --container: 1240px;
+    --gutter: clamp(20px, 5vw, 64px);
+
+    --radius: 4px;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--f-body);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  button{ font-family:inherit; cursor:pointer; border:none; background:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  :focus-visible{
+    outline:2px solid var(--accent-2);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--container);
+    margin:0 auto;
+    padding:0 var(--gutter);
+  }
+
+  /* ============================================================
+     TYPOGRAPHY HELPERS
+     ============================================================ */
+  .eyebrow{
+    font-family:var(--f-mono);
+    font-size:.78rem;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+    display:flex;
+    align-items:center;
+    gap:.9rem;
+  }
+  .eyebrow::before{
+    content:"";
+    display:block;
+    width:34px; height:1px;
+    background:var(--accent-2);
+    flex-shrink:0;
+  }
+  .h-display{
+    font-family:var(--f-display);
+    text-transform:uppercase;
+    line-height:1.02;
+    letter-spacing:.01em;
+    font-weight:400;
+  }
+  .section-title{
+    font-size:clamp(2.4rem, 6vw, 4.4rem);
+    margin-top:.5rem;
+  }
+  .section-lede{
+    max-width:46ch;
+    color:var(--text-dim);
+    font-size:clamp(1rem, 1.2vw, 1.125rem);
+    margin-top:1.1rem;
+  }
+  .accent{ color:var(--accent-2); }
+  .gold{ color:var(--gold); }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.6rem;
+    font-family:var(--f-mono);
+    font-size:.82rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:1.05rem 1.9rem;
+    border-radius:var(--radius);
+    border:1px solid transparent;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+    white-space:nowrap;
+  }
+  .btn svg{ width:18px; height:18px; flex-shrink:0; }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+    box-shadow:0 0 0 0 rgba(230,58,33,.5);
+  }
+  .btn-primary:hover{
+    background:var(--accent-2);
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px -8px rgba(230,58,33,.65);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border-color:var(--border-2);
+  }
+  .btn-ghost:hover{
+    border-color:var(--text);
+    transform:translateY(-2px);
+  }
+  .btn-block{ width:100%; }
+
+  /* ============================================================
+     NAV
+     ============================================================ */
+  .nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    padding:1.35rem 0;
+    transition:background .35s var(--ease), padding .35s var(--ease), border-color .35s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  .nav.is-scrolled{
+    background:rgba(11,11,13,.86);
+    backdrop-filter:blur(14px);
+    padding:.85rem 0;
+    border-color:var(--border);
+  }
+  .nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:2rem;
+  }
+  .logo{
+    font-family:var(--f-display);
+    font-size:1.65rem;
+    letter-spacing:.08em;
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+  }
+  .logo .dot{
+    width:9px; height:9px;
+    background:var(--accent);
+    border-radius:50%;
+    display:inline-block;
+    box-shadow:0 0 0 4px rgba(230,58,33,.18);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:2.4rem;
+    font-family:var(--f-mono);
+    font-size:.78rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .nav-links a{
+    position:relative;
+    padding-bottom:.3rem;
+    color:var(--text-dim);
+    transition:color .2s;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; right:100%; bottom:0;
+    height:1px; background:var(--accent-2);
+    transition:right .25s var(--ease);
+  }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links a:hover::after{ right:0; }
+
+  .nav-actions{ display:flex; align-items:center; gap:1rem; }
+  .nav .btn-primary{ padding:.85rem 1.4rem; font-size:.74rem; }
+
+  .nav-burger{
+    display:none;
+    width:42px; height:42px;
+    border:1px solid var(--border-2);
+    border-radius:var(--radius);
+    align-items:center;
+    justify-content:center;
+  }
+  .nav-burger svg{ width:20px; height:20px; }
+
+  .mobile-menu{
+    position:fixed;
+    inset:0;
+    background:var(--bg);
+    z-index:99;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:0 var(--gutter);
+    transform:translateY(-100%);
+    transition:transform .4s var(--ease);
+  }
+  .mobile-menu.is-open{ transform:translateY(0); }
+  .mobile-menu ul{
+    display:flex;
+    flex-direction:column;
+    gap:1.6rem;
+  }
+  .mobile-menu a{
+    font-family:var(--f-display);
+    font-size:clamp(2.2rem,11vw,3.4rem);
+    text-transform:uppercase;
+  }
+  .mobile-menu .btn{ margin-top:2.4rem; align-self:flex-start; }
+  .mobile-close{
+    position:absolute;
+    top:1.4rem; right:var(--gutter);
+    width:46px; height:46px;
+    border:1px solid var(--border-2);
+    border-radius:var(--radius);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .mobile-close svg{ width:20px; height:20px; }
+
+  /* ============================================================
+     PLACEHOLDER IMAGE BLOCKS
+     ============================================================ */
+  .ph{
+    position:relative;
+    background:
+      repeating-linear-gradient(135deg, rgba(244,241,233,.035) 0 2px, transparent 2px 14px),
+      linear-gradient(150deg, #1f1f24 0%, #131315 65%, #0c0c0e 100%);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+  }
+  .ph::after{
+    content:"";
+    position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 25%, rgba(230,58,33,.10), transparent 55%);
+  }
+  .ph-corner{
+    position:absolute;
+    width:22px; height:22px;
+    border:1px solid var(--border-2);
+    opacity:.7;
+  }
+  .ph-corner.tl{ top:14px; left:14px; border-right:none; border-bottom:none; }
+  .ph-corner.tr{ top:14px; right:14px; border-left:none; border-bottom:none; }
+  .ph-corner.bl{ bottom:14px; left:14px; border-right:none; border-top:none; }
+  .ph-corner.br{ bottom:14px; right:14px; border-left:none; border-top:none; }
+  .ph-body{
+    position:relative;
+    z-index:1;
+    width:100%;
+    padding:1.1rem 1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:1rem;
+  }
+  .ph-icon{
+    width:46px; height:46px;
+    flex-shrink:0;
+    border:1px solid var(--border-2);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--accent-2);
+    background:rgba(11,11,13,.4);
+  }
+  .ph-icon svg{ width:22px; height:22px; }
+  .ph-label{
+    font-family:var(--f-mono);
+    font-size:.7rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+    line-height:1.5;
+  }
+  .ph-label b{
+    display:block;
+    color:var(--text-dim);
+    font-size:.78rem;
+    letter-spacing:.08em;
+    margin-bottom:.15rem;
+  }
+  .ph--16-9{ aspect-ratio:16/9; }
+  .ph--4-5{ aspect-ratio:4/5; }
+  .ph--1-1{ aspect-ratio:1/1; }
+  .ph--3-4{ aspect-ratio:3/4; }
+  .ph--21-9{ aspect-ratio:21/9; }
+
+  /* ============================================================
+     HERO
+     ============================================================ */
+  .hero{
+    position:relative;
+    padding:calc(6.5rem + 4vw) 0 5rem;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-20%; right:-10%;
+    width:60vw; height:60vw;
+    max-width:760px; max-height:760px;
+    background:radial-gradient(circle, rgba(230,58,33,.16), transparent 65%);
+    pointer-events:none;
+    z-index:0;
+  }
+  .hero .wrap{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:clamp(2.5rem, 5vw, 5rem);
+    align-items:center;
+  }
+  .hero-copy h1{
+    font-size:clamp(3.2rem, 8.5vw, 6.6rem);
+    margin-top:.6rem;
+  }
+  .hero-copy h1 span{ display:block; }
+  .hero-copy h1 .line-accent{ color:var(--accent-2); }
+  .hero-copy p{
+    margin-top:1.4rem;
+    max-width:46ch;
+    color:var(--text-dim);
+    font-size:clamp(1rem, 1.4vw, 1.15rem);
+  }
+  .hero-actions{
+    margin-top:2.4rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+  }
+  .hero-stats{
+    margin-top:3.2rem;
+    display:grid;
+    grid-template-columns:repeat(4,auto);
+    gap:clamp(1.4rem, 3vw, 2.6rem);
+  }
+  .hero-stats div{ min-width:0; }
+  .hero-stats b{
+    display:block;
+    font-family:var(--f-display);
+    font-size:clamp(1.8rem,3.2vw,2.6rem);
+    color:var(--text);
+  }
+  .hero-stats span{
+    font-family:var(--f-mono);
+    font-size:.68rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+
+  .hero-visual{ position:relative; }
+  .hero-visual .ph{ aspect-ratio:4/5; }
+
+  /* signature element: round timer */
+  .round-timer{
+    position:absolute;
+    bottom:-2.2rem; left:-2.2rem;
+    width:148px; height:148px;
+    background:var(--bg-elev);
+    border:1px solid var(--border-2);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 18px 50px -12px rgba(0,0,0,.6);
+    z-index:2;
+  }
+  .round-timer svg{
+    position:absolute; inset:0;
+    transform:rotate(-90deg);
+  }
+  .round-timer circle{
+    fill:none;
+    stroke-width:3;
+  }
+  .round-timer .track{ stroke:var(--border-2); }
+  .round-timer .progress{
+    stroke:var(--accent-2);
+    stroke-dasharray:408;
+    stroke-dashoffset:408;
+    stroke-linecap:round;
+    animation:round-countdown 180s linear infinite;
+  }
+  @keyframes round-countdown{
+    from{ stroke-dashoffset:0; }
+    to{ stroke-dashoffset:408; }
+  }
+  .round-timer-inner{
+    text-align:center;
+    font-family:var(--f-mono);
+  }
+  .round-timer-inner .clock{
+    font-size:1.45rem;
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+  .round-timer-inner .rd{
+    margin-top:.2rem;
+    font-size:.62rem;
+    letter-spacing:.22em;
+    color:var(--text-mute);
+    text-transform:uppercase;
+  }
+
+  /* ============================================================
+     MARQUEE STRIP
+     ============================================================ */
+  .marquee{
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    background:var(--bg-soft);
+    overflow:hidden;
+    padding:1.1rem 0;
+  }
+  .marquee-track{
+    display:flex;
+    gap:3.5rem;
+    white-space:nowrap;
+    animation:marquee 38s linear infinite;
+    width:max-content;
+  }
+  .marquee span{
+    font-family:var(--f-display);
+    font-size:1.15rem;
+    letter-spacing:.18em;
+    color:var(--text-mute);
+    text-transform:uppercase;
+    display:flex; align-items:center; gap:3.5rem;
+  }
+  .marquee span b{ color:var(--accent-2); font-weight:400; }
+  @keyframes marquee{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+
+  /* ============================================================
+     GENERIC SECTION
+     ============================================================ */
+  section{ padding:clamp(4.5rem, 9vw, 8rem) 0; }
+  .section-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:2rem;
+    margin-bottom:clamp(2.6rem, 6vw, 4.5rem);
+  }
+  .section-head .section-lede{ margin-top:0; }
+
+  /* reveal-on-scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .8s var(--ease), transform .8s var(--ease);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============================================================
+     PROGRAMS — ROUND 01
+     ============================================================ */
+  .programs-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:1.4rem;
+  }
+  .program-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:1.6rem;
+    display:flex;
+    flex-direction:column;
+    gap:1.1rem;
+    transition:border-color .3s, transform .3s var(--ease), background .3s;
+  }
+  .program-card:hover{
+    border-color:var(--border-2);
+    transform:translateY(-6px);
+    background:#212126;
+  }
+  .program-card .ph{ aspect-ratio:4/3; }
+  .program-card .tag{
+    font-family:var(--f-mono);
+    font-size:.66rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
+  .program-card h3{
+    font-family:var(--f-display);
+    font-size:1.55rem;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+  .program-card p{
+    color:var(--text-mute);
+    font-size:.92rem;
+    flex-grow:1;
+  }
+  .program-card .meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:.9rem;
+    border-top:1px solid var(--border);
+    font-family:var(--f-mono);
+    font-size:.72rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+  .program-card a.link{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    color:var(--accent-2);
+    font-weight:700;
+  }
+  .program-card a.link svg{ width:14px; height:14px; transition:transform .25s var(--ease); }
+  .program-card a.link:hover svg{ transform:translateX(4px); }
+
+  /* ============================================================
+     FACILITY — ROUND 02
+     ============================================================ */
+  .facility{ background:var(--bg-soft); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .facility .wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(2.5rem,5vw,5rem);
+    align-items:center;
+  }
+  .facility-visual{ display:grid; grid-template-columns:1.2fr .8fr; grid-template-rows:1fr 1fr; gap:1rem; height:520px; }
+  .facility-visual .ph:nth-child(1){ grid-row:1/3; }
+  .facility-list{ margin-top:2.4rem; display:flex; flex-direction:column; gap:1.4rem; }
+  .facility-item{ display:flex; gap:1.1rem; align-items:flex-start; }
+  .facility-item .num{
+    font-family:var(--f-mono);
+    font-size:.78rem;
+    color:var(--accent-2);
+    border:1px solid var(--border-2);
+    border-radius:50%;
+    width:34px; height:34px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .facility-item h4{
+    font-family:var(--f-display);
+    font-size:1.2rem;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    margin-bottom:.25rem;
+  }
+  .facility-item p{ color:var(--text-mute); font-size:.92rem; }
+
+  /* ============================================================
+     TRAINERS — ROUND 03
+     ============================================================ */
+  .trainers-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1.4rem;
+  }
+  .trainer-card .ph{ aspect-ratio:3/4; margin-bottom:1.1rem; }
+  .trainer-card h3{
+    font-family:var(--f-display);
+    font-size:1.5rem;
+    text-transform:uppercase;
+  }
+  .trainer-card .role{
+    font-family:var(--f-mono);
+    font-size:.7rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-2);
+    margin:.35rem 0 .7rem;
+  }
+  .trainer-card p{ color:var(--text-mute); font-size:.88rem; }
+
+  /* ============================================================
+     GALLERY — ROUND 04
+     ============================================================ */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    grid-template-rows:repeat(2, 220px);
+    gap:1rem;
+  }
+  .gallery-grid .ph{ height:100%; }
+  .gallery-grid .g1{ grid-column:1/3; grid-row:1/3; }
+  .gallery-grid .g2{ grid-column:3/5; }
+  .gallery-grid .g3{ grid-column:3/4; }
+  .gallery-grid .g4{ grid-column:4/5; }
+
+  /* ============================================================
+     PRICING — ROUND 05
+     ============================================================ */
+  .pricing-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.4rem;
+  }
+  .price-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:2.2rem;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    transition:transform .3s var(--ease), border-color .3s;
+  }
+  .price-card:hover{ transform:translateY(-6px); border-color:var(--border-2); }
+  .price-card.is-featured{
+    border-color:var(--accent);
+    background:linear-gradient(165deg, rgba(230,58,33,.10), var(--bg-card) 60%);
+  }
+  .price-badge{
+    position:absolute;
+    top:-1px; right:1.6rem;
+    transform:translateY(-50%);
+    background:var(--accent);
+    color:#fff;
+    font-family:var(--f-mono);
+    font-size:.64rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    padding:.4rem .8rem;
+    border-radius:2px;
+  }
+  .price-card .plan-name{
+    font-family:var(--f-mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+  }
+  .price-card h3{
+    font-family:var(--f-display);
+    font-size:2rem;
+    text-transform:uppercase;
+    margin:.5rem 0 1.2rem;
+  }
+  .price-card .price{
+    font-family:var(--f-display);
+    font-size:3.2rem;
+    margin-bottom:.25rem;
+  }
+  .price-card .price sup{
+    font-family:var(--f-mono);
+    font-size:1rem;
+    color:var(--text-mute);
+    font-weight:400;
+  }
+  .price-card .price-period{
+    font-family:var(--f-mono);
+    font-size:.74rem;
+    letter-spacing:.12em;
+    color:var(--text-mute);
+    text-transform:uppercase;
+    margin-bottom:1.6rem;
+  }
+  .price-card ul{
+    display:flex; flex-direction:column; gap:.85rem;
+    margin-bottom:2rem;
+    flex-grow:1;
+  }
+  .price-card li{
+    display:flex; align-items:flex-start; gap:.7rem;
+    font-size:.92rem;
+    color:var(--text-dim);
+  }
+  .price-card li svg{ width:16px; height:16px; flex-shrink:0; margin-top:.2rem; color:var(--accent-2); }
+
+  /* ============================================================
+     TESTIMONIALS
+     ============================================================ */
+  .testimonials{ background:var(--bg-soft); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.4rem;
+  }
+  .testi-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:2rem;
+    display:flex;
+    flex-direction:column;
+    gap:1.4rem;
+  }
+  .testi-quote{
+    font-family:var(--f-display);
+    font-size:1.05rem;
+    line-height:1.5;
+    text-transform:none;
+    letter-spacing:.01em;
+    color:var(--text);
+  }
+  .testi-stars{ display:flex; gap:.25rem; color:var(--gold); }
+  .testi-stars svg{ width:16px; height:16px; }
+  .testi-person{ display:flex; align-items:center; gap:.9rem; margin-top:auto; }
+  .testi-avatar{
+    width:42px; height:42px;
+    border-radius:50%;
+    background:var(--bg-elev);
+    border:1px solid var(--border-2);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--accent-2);
+    flex-shrink:0;
+  }
+  .testi-avatar svg{ width:18px; height:18px; }
+  .testi-person b{ font-size:.92rem; display:block; }
+  .testi-person span{
+    font-family:var(--f-mono);
+    font-size:.7rem;
+    letter-spacing:.08em;
+    color:var(--text-mute);
+    text-transform:uppercase;
+  }
+
+  /* ============================================================
+     CTA / CONTACT
+     ============================================================ */
+  .cta{ position:relative; overflow:hidden; }
+  .cta::before{
+    content:"";
+    position:absolute; left:50%; top:50%;
+    width:90vw; height:90vw; max-width:900px; max-height:900px;
+    background:radial-gradient(circle, rgba(230,58,33,.14), transparent 60%);
+    transform:translate(-50%,-50%);
+    pointer-events:none;
+  }
+  .cta .wrap{ position:relative; z-index:1; }
+  .cta-top{ text-align:center; max-width:760px; margin:0 auto; }
+  .cta-top h2{ font-size:clamp(2.6rem,7vw,5.2rem); margin-top:.6rem; }
+  .cta-top p{ margin-top:1.2rem; color:var(--text-dim); }
+  .cta-actions{ display:flex; justify-content:center; gap:1rem; margin-top:2.2rem; flex-wrap:wrap; }
+
+  .cta-grid{
+    margin-top:clamp(3rem,7vw,5.5rem);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1.4rem;
+  }
+  .cta-card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:1.8rem;
+    display:flex; flex-direction:column; gap:.9rem;
+  }
+  .cta-card .ph-icon{ width:48px; height:48px; }
+  .cta-card h4{
+    font-family:var(--f-display);
+    font-size:1.25rem;
+    text-transform:uppercase;
+  }
+  .cta-card p{ color:var(--text-mute); font-size:.9rem; }
+  .cta-card a.link{ color:var(--accent-2); font-weight:700; font-size:.85rem; }
+
+  .cta-map{ margin-top:1.4rem; }
+  .cta-map .ph{ aspect-ratio:21/6; }
+
+  /* ============================================================
+     FOOTER
+     ============================================================ */
+  footer{
+    border-top:1px solid var(--border);
+    padding:4rem 0 2rem;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:2.5rem;
+    padding-bottom:3rem;
+  }
+  .footer-brand .logo{ margin-bottom:1rem; }
+  .footer-brand p{ color:var(--text-mute); font-size:.9rem; max-width:32ch; }
+  .footer-social{ display:flex; gap:.7rem; margin-top:1.4rem; }
+  .footer-social a{
+    width:38px; height:38px;
+    border:1px solid var(--border-2);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .25s, color .25s, transform .25s var(--ease);
+  }
+  .footer-social a:hover{ border-color:var(--accent-2); color:var(--accent-2); transform:translateY(-3px); }
+  .footer-social svg{ width:16px; height:16px; }
+  .footer-col h5{
+    font-family:var(--f-mono);
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--text-mute);
+    margin-bottom:1.2rem;
+  }
+  .footer-col ul{ display:flex; flex-direction:column; gap:.75rem; }
+  .footer-col a{ font-size:.92rem; color:var(--text-dim); transition:color .2s; }
+  .footer-col a:hover{ color:var(--accent-2); }
+  .footer-bottom{
+    border-top:1px solid var(--border);
+    padding-top:1.6rem;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:1rem;
+    font-family:var(--f-mono);
+    font-size:.72rem;
+    letter-spacing:.08em;
+    color:var(--text-mute);
+    text-transform:uppercase;
+  }
+
+  /* ============================================================
+     FLOATING WHATSAPP
+     ============================================================ */
+  .wa-float{
+    position:fixed;
+    bottom:1.6rem; right:1.6rem;
+    z-index:90;
+    width:60px; height:60px;
+    border-radius:50%;
+    background:var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 14px 40px -10px rgba(230,58,33,.7);
+    color:#fff;
+    transition:transform .25s var(--ease);
+  }
+  .wa-float svg{ width:28px; height:28px; }
+  .wa-float::before{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:var(--accent);
+    opacity:.55;
+    animation:wa-ping 2.6s var(--ease) infinite;
+    z-index:-1;
+  }
+  .wa-float:hover{ transform:scale(1.08); }
+  @keyframes wa-ping{
+    0%{ transform:scale(1); opacity:.55; }
+    70%{ transform:scale(1.9); opacity:0; }
+    100%{ transform:scale(1.9); opacity:0; }
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 1080px){
+    .programs-grid{ grid-template-columns:repeat(2,1fr); }
+    .trainers-grid{ grid-template-columns:repeat(2,1fr); }
+    .pricing-grid{ grid-template-columns:1fr; max-width:480px; margin:0 auto; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .cta-grid{ grid-template-columns:1fr; }
+    .footer-grid{ grid-template-columns:1fr 1fr; }
+    .gallery-grid{ grid-template-rows:repeat(3,200px); }
+    .gallery-grid .g1{ grid-column:1/5; grid-row:1/2; }
+    .gallery-grid .g2{ grid-column:1/3; grid-row:2/3; }
+    .gallery-grid .g3{ grid-column:3/4; grid-row:2/3; }
+    .gallery-grid .g4{ grid-column:4/5; grid-row:2/3; }
+    .gallery-grid .g5{ grid-column:1/3; grid-row:3/4; }
+    .gallery-grid .g6{ grid-column:3/5; grid-row:3/4; }
+  }
+
+  @media (max-width: 860px){
+    .nav-links, .nav .btn-primary{ display:none; }
+    .nav-burger{ display:flex; }
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; max-width:420px; margin:0 auto 2rem; }
+    .hero-stats{ grid-template-columns:repeat(2,1fr); }
+    .facility .wrap{ grid-template-columns:1fr; }
+    .facility-visual{ height:380px; }
+    .footer-grid{ grid-template-columns:1fr; gap:2.4rem; }
+  }
+
+  @media (max-width: 620px){
+    .programs-grid{ grid-template-columns:1fr; }
+    .trainers-grid{ grid-template-columns:1fr; }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-template-rows:repeat(4,180px); }
+    .gallery-grid .g1{ grid-column:1/3; grid-row:1/2; }
+    .gallery-grid .g2{ grid-column:1/3; grid-row:2/3; }
+    .gallery-grid .g3{ grid-column:1/2; grid-row:3/4; }
+    .gallery-grid .g4{ grid-column:2/3; grid-row:3/4; }
+    .gallery-grid .g5{ grid-column:1/2; grid-row:4/5; }
+    .gallery-grid .g6{ grid-column:2/3; grid-row:4/5; }
+    .round-timer{ width:108px; height:108px; left:-1.2rem; bottom:-1.6rem; }
+    .round-timer-inner .clock{ font-size:1.05rem; }
+    .cta-actions .btn, .hero-actions .btn{ width:100%; }
+    .hero-actions, .cta-actions{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     ICON SPRITE
+     ============================================================ -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="ic-glove" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 13V7a3 3 0 0 1 6 0v3"/><path d="M13 9a2.5 2.5 0 0 1 5 0v5"/>
+    <path d="M18 14v2a4 4 0 0 1-4 4H10a5 5 0 0 1-5-5v-2c0-1.1.9-2 2-2h1"/>
+  </symbol>
+  <symbol id="ic-kick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="14" cy="4" r="2"/>
+    <path d="M13 6 9 12l3 2-1 6"/><path d="M9 12 4 14"/><path d="M12 8l5 4 3-1"/>
+  </symbol>
+  <symbol id="ic-fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2c1 3-3 4-3 7a3 3 0 0 0 6 0c1 1 2 2.5 2 4.5A5.5 5.5 0 0 1 6 13.5C6 8 12 6 12 2z"/>
+  </symbol>
+  <symbol id="ic-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>
+  </symbol>
+  <symbol id="ic-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 4h8v4a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a3 3 0 0 0 3 4"/><path d="M16 5h3a3 3 0 0 1-3 4"/>
+    <path d="M12 12v3"/><path d="M9 19h6"/><path d="M10 19v-2h4v2"/>
+  </symbol>
+  <symbol id="ic-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/>
+    <circle cx="17" cy="8" r="2.4"/><path d="M16 15.3c2.6.3 4.5 1.8 5 4.7"/>
+  </symbol>
+  <symbol id="ic-child" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="5" r="2.5"/><path d="M7 21v-6l-2-4 2-1 2 3h6l2-3 2 1-2 4v6"/><path d="M10 21v-4h4v4"/>
+  </symbol>
+  <symbol id="ic-dumbbell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 8v8"/><path d="M2 10v4"/><path d="M20 8v8"/><path d="M22 10v4"/><path d="M6 12h12"/>
+    <path d="M6 9v6"/><path d="M18 9v6"/>
+  </symbol>
+  <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+  </symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21s7-6.6 7-11A7 7 0 0 0 5 10c0 4.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>
+  </symbol>
+  <symbol id="ic-whatsapp" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.4.2-.6.1-.8-.4-1.7-1-2.4-1.8-.7-.7-1.3-1.5-1.7-2.4-.1-.2 0-.4.1-.6.2-.2.6-.6.8-.9.1-.2.1-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.5-.6-.5h-.6c-.2 0-.5.1-.7.3-.8.8-1.2 1.7-1.2 2.8.1 1.5.7 3 1.9 4.4 1.6 1.9 3.4 3.1 5.7 3.8 1.4.4 2.6.3 3.5-.1.6-.3 1.3-1 1.5-1.8.1-.4.1-.8 0-1-.1-.1-.3-.2-.5-.3z"/>
+    <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2z"/>
+  </symbol>
+  <symbol id="ic-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/>
+  </symbol>
+  <symbol id="ic-tiktok" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M14 3c.4 2.3 1.8 3.7 4 3.9v2.6c-1.5 0-2.9-.5-4-1.4v5.6a4.7 4.7 0 1 1-4-4.6v2.7a2 2 0 1 0 1.4 1.9V3h2.6z"/>
+  </symbol>
+  <symbol id="ic-youtube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 6 9 17l-5-5"/>
+  </symbol>
+  <symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>
+  </symbol>
+  <symbol id="ic-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M3 6h18"/><path d="M3 12h18"/><path d="M3 18h18"/>
+  </symbol>
+  <symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M5 5l14 14"/><path d="M19 5 5 19"/>
+  </symbol>
+  <symbol id="ic-star" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2l2.9 6.1 6.7.9-4.9 4.6 1.3 6.6L12 16.9 5.9 20.2l1.3-6.6L2.3 9l6.7-.9z"/>
+  </symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<header class="nav" id="siteNav">
+  <div class="wrap">
+    <a href="#top" class="logo"><span class="dot"></span>KOBRA<span style="color:var(--text-mute); font-size:.85em; margin-left:.2rem;">KICKBOX</span></a>
+    <nav class="nav-links">
+      <a href="#programlar">Programlar</a>
+      <a href="#tesis">Tesis</a>
+      <a href="#egitmenler">Eğitmenler</a>
+      <a href="#uyelik">Üyelik</a>
+      <a href="#iletisim">İletişim</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#" class="btn btn-primary js-wa" data-wa-text="Merhaba, ücretsiz deneme dersi almak istiyorum.">
+        <svg><use href="#ic-whatsapp"/></svg>
+        Hemen Başla
+      </a>
+      <button class="nav-burger" id="burgerBtn" aria-label="Menüyü aç">
+        <svg><use href="#ic-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose" aria-label="Menüyü kapat">
+    <svg><use href="#ic-close"/></svg>
+  </button>
+  <ul>
+    <li><a href="#programlar">Programlar</a></li>
+    <li><a href="#tesis">Tesis</a></li>
+    <li><a href="#egitmenler">Eğitmenler</a></li>
+    <li><a href="#uyelik">Üyelik</a></li>
+    <li><a href="#iletisim">İletişim</a></li>
+  </ul>
+  <a href="#" class="btn btn-primary js-wa" data-wa-text="Merhaba, ücretsiz deneme dersi almak istiyorum.">
+    <svg><use href="#ic-whatsapp"/></svg>
+    WhatsApp ile İletişime Geç
+  </a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Kadıköy · Kickbox &amp; Performans Akademisi</div>
+      <h1 class="h-display">
+        <span>Gücünü</span>
+        <span class="line-accent">Ringde Bul.</span>
+      </h1>
+      <p>Profesyonel kickbox eğitmenleri eşliğinde, başlangıç seviyesinden ringe kadar her seviyeye uygun programlar. Doğru teknik, gerçek disiplin ve sonuç odaklı antrenmanlar — ilk dersin bizden.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary js-wa" data-wa-text="Merhaba, ücretsiz deneme dersi almak istiyorum. Müsait olduğunuz saatleri öğrenebilir miyim?">
+          <svg><use href="#ic-whatsapp"/></svg>
+          Ücretsiz Deneme Dersi
+        </a>
+        <a href="#programlar" class="btn btn-ghost">
+          Programları Gör
+          <svg><use href="#ic-arrow"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div><b>14+</b><span>Yıl Tecrübe</span></div>
+        <div><b>520+</b><span>Aktif Üye</span></div>
+        <div><b>9</b><span>Uzman Eğitmen</span></div>
+        <div><b>3</b><span>Antrenman Salonu</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="ph ph--4-5">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span>
+        <span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body">
+          <div class="ph-icon"><svg><use href="#ic-glove"/></svg></div>
+          <div class="ph-label"><b>Görsel Alanı</b>Salon Antrenmanı — Kickbox Sporcusu, Eldiven &amp; Vuruş Anı (1080×1350)</div>
+        </div>
+      </div>
+      <div class="round-timer">
+        <svg viewBox="0 0 144 144">
+          <circle class="track" cx="72" cy="72" r="65"/>
+          <circle class="progress" cx="72" cy="72" r="65"/>
+        </svg>
+        <div class="round-timer-inner">
+          <div class="clock">03:00</div>
+          <div class="rd">Round 01</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>
+      Kickbox <b>•</b> Muay Thai Temelli <b>•</b> Fitness Kickbox <b>•</b> Performans &amp; Sparring <b>•</b> Çocuk &amp; Genç Grupları <b>•</b>
+      Kickbox <b>•</b> Muay Thai Temelli <b>•</b> Fitness Kickbox <b>•</b> Performans &amp; Sparring <b>•</b> Çocuk &amp; Genç Grupları <b>•</b>
+    </span>
+    <span>
+      Kickbox <b>•</b> Muay Thai Temelli <b>•</b> Fitness Kickbox <b>•</b> Performans &amp; Sparring <b>•</b> Çocuk &amp; Genç Grupları <b>•</b>
+      Kickbox <b>•</b> Muay Thai Temelli <b>•</b> Fitness Kickbox <b>•</b> Performans &amp; Sparring <b>•</b> Çocuk &amp; Genç Grupları <b>•</b>
+    </span>
+  </div>
+</div>
+
+<!-- ============================================================
+     ROUND 01 — PROGRAMS
+     ============================================================ -->
+<section id="programlar">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <div class="eyebrow">Round 01 — Programlar</div>
+        <h2 class="h-display section-title">Seviyene Uygun<br>Antrenman</h2>
+      </div>
+      <p class="section-lede reveal">Her program, farklı hedef ve seviyeye göre kurgulandı. Hangisinin sana uygun olduğuna karar veremiyorsan, ücretsiz deneme dersinde birlikte belirleyelim.</p>
+    </div>
+
+    <div class="programs-grid">
+      <article class="program-card reveal">
+        <div class="ph ph--4-5">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-glove"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Temel Duruş Antrenmanı (800×1000)</div>
+          </div>
+        </div>
+        <span class="tag">Başlangıç</span>
+        <h3>Kickbox Temel</h3>
+        <p>Doğru duruş, temel yumruk ve tekme teknikleri, nefes kontrolü. Kickbox dünyasına güvenli ve sağlam bir giriş.</p>
+        <div class="meta">
+          <span>Haftada 2–3 ders</span>
+          <span><svg style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="#ic-clock"/></svg> 60 dk</span>
+        </div>
+        <a href="#" class="link js-wa" data-wa-text="Merhaba, Kickbox Temel programı hakkında bilgi almak istiyorum.">Detaylı Bilgi Al <svg><use href="#ic-arrow"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="ph ph--4-5">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-target"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Sparring &amp; Kombinasyon Çalışması (800×1000)</div>
+          </div>
+        </div>
+        <span class="tag">Orta / İleri</span>
+        <h3>Performans Kickbox</h3>
+        <p>İleri seviye kombinasyonlar, kontrollü sparring ve müsabaka hazırlığı. Tempo ve teknik üst seviyede.</p>
+        <div class="meta">
+          <span>Haftada 3–4 ders</span>
+          <span><svg style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="#ic-clock"/></svg> 75 dk</span>
+        </div>
+        <a href="#" class="link js-wa" data-wa-text="Merhaba, Performans Kickbox programı hakkında bilgi almak istiyorum.">Detaylı Bilgi Al <svg><use href="#ic-arrow"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="ph ph--4-5">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-fire"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Grup Dersi — Yüksek Tempo Kardiyo (800×1000)</div>
+          </div>
+        </div>
+        <span class="tag">Tüm Seviyeler</span>
+        <h3>Fitness Kickbox</h3>
+        <p>Müzik eşliğinde yüksek tempolu, yağ yakımı ve dayanıklılık odaklı grup dersleri. Teknik kaygısı olmadan terle.</p>
+        <div class="meta">
+          <span>Haftada 2–5 ders</span>
+          <span><svg style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="#ic-clock"/></svg> 50 dk</span>
+        </div>
+        <a href="#" class="link js-wa" data-wa-text="Merhaba, Fitness Kickbox programı hakkında bilgi almak istiyorum.">Detaylı Bilgi Al <svg><use href="#ic-arrow"/></svg></a>
+      </article>
+
+      <article class="program-card reveal">
+        <div class="ph ph--4-5">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-child"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Çocuk Grubu — Eğitmen Eşliğinde Antrenman (800×1000)</div>
+          </div>
+        </div>
+        <span class="tag">7–16 Yaş</span>
+        <h3>Çocuk &amp; Genç Kickbox</h3>
+        <p>Disiplin, özgüven, koordinasyon ve takım ruhu kazandıran, oyunlaştırılmış ve güvenli antrenman programı.</p>
+        <div class="meta">
+          <span>Haftada 2 ders</span>
+          <span><svg style="width:14px;height:14px;display:inline;vertical-align:-2px"><use href="#ic-clock"/></svg> 45 dk</span>
+        </div>
+        <a href="#" class="link js-wa" data-wa-text="Merhaba, Çocuk %26 Genç Kickbox programı hakkında bilgi almak istiyorum.">Detaylı Bilgi Al <svg><use href="#ic-arrow"/></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ROUND 02 — FACILITY
+     ============================================================ -->
+<section class="facility" id="tesis">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Round 02 — Tesis</div>
+      <h2 class="h-display section-title">Antrenmana<br>Hazır Altyapı</h2>
+      <p class="section-lede">Profesyonel sporculardan ilk dersine çıkacak yeni üyelere kadar herkes için doğru ekipman ve doğru ortam.</p>
+
+      <div class="facility-list">
+        <div class="facility-item">
+          <span class="num">01</span>
+          <div>
+            <h4>3 Profesyonel Ring &amp; Çalışma Alanı</h4>
+            <p>Yarışma standartlarında ringler, ayna duvarlar ve geniş teknik çalışma alanları.</p>
+          </div>
+        </div>
+        <div class="facility-item">
+          <span class="num">02</span>
+          <div>
+            <h4>Özel Sparring &amp; Kum Torbası Salonu</h4>
+            <p>Farklı ağırlık ve yükseklikte kum torbaları, kontrollü sparring için ayrılmış alan.</p>
+          </div>
+        </div>
+        <div class="facility-item">
+          <span class="num">03</span>
+          <div>
+            <h4>İklimlendirme &amp; Hijyen Standartları</h4>
+            <p>Antrenman boyunca konforlu sıcaklık, düzenli hava sirkülasyonu ve günlük hijyen kontrolü.</p>
+          </div>
+        </div>
+        <div class="facility-item">
+          <span class="num">04</span>
+          <div>
+            <h4>Soyunma Odaları &amp; Performans Danışmanlığı</h4>
+            <p>Geniş soyunma/duş alanları ve talep eden üyelere kişiye özel beslenme &amp; gelişim danışmanlığı.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="facility-visual reveal">
+      <div class="ph">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body">
+          <div class="ph-icon"><svg><use href="#ic-target"/></svg></div>
+          <div class="ph-label"><b>Görsel</b>Ana Ring — Genel Salon Görünümü (900×1200)</div>
+        </div>
+      </div>
+      <div class="ph">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body">
+          <div class="ph-icon"><svg><use href="#ic-dumbbell"/></svg></div>
+          <div class="ph-label"><b>Görsel</b>Kondisyon Alanı (600×500)</div>
+        </div>
+      </div>
+      <div class="ph">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body">
+          <div class="ph-icon"><svg><use href="#ic-fire"/></svg></div>
+          <div class="ph-label"><b>Görsel</b>Kum Torbası Alanı (600×500)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ROUND 03 — TRAINERS
+     ============================================================ -->
+<section id="egitmenler">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <div class="eyebrow">Round 03 — Eğitmenler</div>
+        <h2 class="h-display section-title">Köşendeki<br>Ekip</h2>
+      </div>
+      <p class="section-lede reveal">Sahada ve ringde tecrübe kazanmış eğitmen kadromuz, her seviyedeki üyeyle birebir ilgileniyor.</p>
+    </div>
+
+    <div class="trainers-grid">
+      <article class="trainer-card reveal">
+        <div class="ph ph--3-4">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-glove"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Eğitmen Portresi (600×800)</div>
+          </div>
+        </div>
+        <h3>Eren Kaya</h3>
+        <div class="role">Baş Eğitmen · 18 Yıl Tecrübe</div>
+        <p>Dünya Kickbox Federasyonu sertifikalı, eski ringde mücadele etmiş baş antrenör. Teknik ve taktik gelişimden sorumlu.</p>
+      </article>
+      <article class="trainer-card reveal">
+        <div class="ph ph--3-4">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-target"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Eğitmen Portresi (600×800)</div>
+          </div>
+        </div>
+        <h3>Selin Demir</h3>
+        <div class="role">Performans &amp; Sparring Koçu</div>
+        <p>Eski milli sporcu. Müsabaka hazırlığı, sparring güvenliği ve ileri seviye kombinasyonlarda uzman.</p>
+      </article>
+      <article class="trainer-card reveal">
+        <div class="ph ph--3-4">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-fire"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Eğitmen Portresi (600×800)</div>
+          </div>
+        </div>
+        <h3>Burak Yıldız</h3>
+        <div class="role">Fitness Kickbox Koçu</div>
+        <p>Yüksek enerjili grup derslerinde uzman. Dayanıklılık, koordinasyon ve motivasyon odaklı çalışıyor.</p>
+      </article>
+      <article class="trainer-card reveal">
+        <div class="ph ph--3-4">
+          <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+          <div class="ph-body">
+            <div class="ph-icon"><svg><use href="#ic-child"/></svg></div>
+            <div class="ph-label"><b>Görsel</b>Eğitmen Portresi (600×800)</div>
+          </div>
+        </div>
+        <h3>Ayşe Türk</h3>
+        <div class="role">Çocuk Grupları Koçu</div>
+        <p>Pedagojik formasyona sahip, çocuk ve genç gruplarında disiplin ile eğlenceyi bir arada sunuyor.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ROUND 04 — GALLERY
+     ============================================================ -->
+<section id="galeri">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <div class="eyebrow">Round 04 — Galeri</div>
+        <h2 class="h-display section-title">Salondan<br>Kareler</h2>
+      </div>
+      <p class="section-lede reveal">Antrenmanlardan, sparring seanslarından ve müsabaka günlerinden anlar.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="ph g1 reveal">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body"><div class="ph-icon"><svg><use href="#ic-glove"/></svg></div><div class="ph-label"><b>Görsel</b>Antrenman Salonu — Genel Çekim</div></div>
+      </div>
+      <div class="ph g2 reveal">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body"><div class="ph-icon"><svg><use href="#ic-target"/></svg></div><div class="ph-label"><b>Görsel</b>Sparring Seansı</div></div>
+      </div>
+      <div class="ph g3 reveal">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body"><div class="ph-icon"><svg><use href="#ic-fire"/></svg></div><div class="ph-label"><b>Görsel</b>Kum Torbası Çalışması</div></div>
+      </div>
+      <div class="ph g4 reveal">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body"><div class="ph-icon"><svg><use href="#ic-users"/></svg></div><div class="ph-label"><b>Görsel</b>Grup Dersi</div></div>
+      </div>
+      <div class="ph g5 reveal">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body"><div class="ph-icon"><svg><use href="#ic-trophy"/></svg></div><div class="ph-label"><b>Görsel</b>Müsabaka Anı</div></div>
+      </div>
+      <div class="ph g6 reveal">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body"><div class="ph-icon"><svg><use href="#ic-child"/></svg></div><div class="ph-label"><b>Görsel</b>Çocuk Grubu Antrenmanı</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ROUND 05 — PRICING
+     ============================================================ -->
+<section id="uyelik">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <div class="eyebrow">Round 05 — Üyelik</div>
+        <h2 class="h-display section-title">Sana Uygun<br>Paketi Seç</h2>
+      </div>
+      <p class="section-lede reveal">Fiyatlar ve kapsam bilgi amaçlıdır; güncel kampanyalar ve ödeme seçenekleri için WhatsApp üzerinden bizimle iletişime geç.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <span class="plan-name">Başlangıç</span>
+        <h3>Temel</h3>
+        <div class="price">₺1.250<sup>/ay</sup></div>
+        <div class="price-period">Haftada 8 grup dersi</div>
+        <ul>
+          <li><svg><use href="#ic-check"/></svg> Kickbox Temel &amp; Fitness Kickbox derslerine giriş</li>
+          <li><svg><use href="#ic-check"/></svg> Soyunma odası &amp; duş kullanımı</li>
+          <li><svg><use href="#ic-check"/></svg> Aylık vücut analizi</li>
+          <li><svg><use href="#ic-check"/></svg> Topluluk antrenman programına erişim</li>
+        </ul>
+        <a href="#" class="btn btn-ghost btn-block js-wa" data-wa-text="Merhaba, Temel üyelik paketi hakkında bilgi almak istiyorum.">
+          <svg><use href="#ic-whatsapp"/></svg> WhatsApp'tan Bilgi Al
+        </a>
+      </div>
+
+      <div class="price-card is-featured reveal">
+        <span class="price-badge">En Popüler</span>
+        <span class="plan-name">Performans</span>
+        <h3>Sınırsız</h3>
+        <div class="price">₺2.150<sup>/ay</sup></div>
+        <div class="price-period">Sınırsız grup dersi + 1 özel ders</div>
+        <ul>
+          <li><svg><use href="#ic-check"/></svg> Tüm grup derslerine sınırsız erişim</li>
+          <li><svg><use href="#ic-check"/></svg> Ayda 1 birebir performans değerlendirmesi</li>
+          <li><svg><use href="#ic-check"/></svg> Sparring seanslarına katılım hakkı</li>
+          <li><svg><use href="#ic-check"/></svg> Kişisel gelişim takip kartı</li>
+          <li><svg><use href="#ic-check"/></svg> Özel etkinlik &amp; seminer davetleri</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-block js-wa" data-wa-text="Merhaba, Performans (Sınırsız) üyelik paketi hakkında bilgi almak istiyorum.">
+          <svg><use href="#ic-whatsapp"/></svg> WhatsApp'tan Bilgi Al
+        </a>
+      </div>
+
+      <div class="price-card reveal">
+        <span class="plan-name">Elite</span>
+        <h3>Profesyonel</h3>
+        <div class="price">₺3.450<sup>/ay</sup></div>
+        <div class="price-period">Sınırsız + 4 özel ders + danışmanlık</div>
+        <ul>
+          <li><svg><use href="#ic-check"/></svg> Sınırsız grup dersi + ayda 4 özel ders</li>
+          <li><svg><use href="#ic-check"/></svg> Kişiye özel beslenme danışmanlığı</li>
+          <li><svg><use href="#ic-check"/></svg> Müsabaka hazırlık programına öncelik</li>
+          <li><svg><use href="#ic-check"/></svg> Sparring &amp; teknik analiz video desteği</li>
+          <li><svg><use href="#ic-check"/></svg> Tüm salonlarda geçerli üyelik</li>
+        </ul>
+        <a href="#" class="btn btn-ghost btn-block js-wa" data-wa-text="Merhaba, Elite üyelik paketi hakkında bilgi almak istiyorum.">
+          <svg><use href="#ic-whatsapp"/></svg> WhatsApp'tan Bilgi Al
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <div class="eyebrow">Üye Yorumları</div>
+        <h2 class="h-display section-title">Ringden<br>Sesler</h2>
+      </div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg>
+        </div>
+        <p class="testi-quote">"6 ayda hem fiziksel olarak hem de özgüven anlamında inanılmaz bir değişim yaşadım. Eğitmenler her seviyeye gerçekten zaman ayırıyor."</p>
+        <div class="testi-person">
+          <div class="testi-avatar"><svg><use href="#ic-users"/></svg></div>
+          <div><b>Deniz A.</b><span>8 Aydır Üye · Performans Paketi</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg>
+        </div>
+        <p class="testi-quote">"Oğlum başta çok içine kapanıktı. Çocuk grubuna başladıktan sonra disiplin ve özgüveni gözle görülür şekilde arttı."</p>
+        <div class="testi-person">
+          <div class="testi-avatar"><svg><use href="#ic-child"/></svg></div>
+          <div><b>Murat S.</b><span>1 Yıldır Veli · Çocuk Grubu</span></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">
+          <svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg><svg><use href="#ic-star"/></svg>
+        </div>
+        <p class="testi-quote">"Fitness Kickbox dersleri tam istediğim tempoda. Hem stres atıyorum hem de görünür şekilde formdayım."</p>
+        <div class="testi-person">
+          <div class="testi-avatar"><svg><use href="#ic-fire"/></svg></div>
+          <div><b>Ece Y.</b><span>1 Yıldan Fazla Üye · Temel Paket</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA / CONTACT
+     ============================================================ -->
+<section class="cta" id="iletisim">
+  <div class="wrap">
+    <div class="cta-top reveal">
+      <div class="eyebrow" style="justify-content:center">İletişim</div>
+      <h2 class="h-display">İlk Dersin <span class="accent">Bizden.</span></h2>
+      <p>Programlar, ücretler ve müsait ders saatleri hakkında en hızlı dönüşü WhatsApp üzerinden alırsın. Mesaj at, ekibimiz aynı gün içinde sana dönsün.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary js-wa" data-wa-text="Merhaba, kickbox dersleri hakkında bilgi almak istiyorum.">
+          <svg><use href="#ic-whatsapp"/></svg> WhatsApp ile İletişime Geç
+        </a>
+        <a href="#" class="btn btn-ghost js-wa" data-wa-text="Merhaba, ücretsiz deneme dersi için randevu almak istiyorum.">
+          Ücretsiz Deneme Talep Et
+        </a>
+      </div>
+    </div>
+
+    <div class="cta-grid">
+      <div class="cta-card reveal">
+        <div class="ph-icon"><svg><use href="#ic-whatsapp"/></svg></div>
+        <h4>WhatsApp Hattı</h4>
+        <p>+90 542 580 66 92 — 09:00 - 22:00 arası mesajlarına en kısa sürede dönüş yapılır.</p>
+        <a href="#" class="link js-wa" data-wa-text="Merhaba, kickbox dersleri hakkında bilgi almak istiyorum.">Mesaj Gönder →</a>
+      </div>
+      <div class="cta-card reveal">
+        <div class="ph-icon"><svg><use href="#ic-pin"/></svg></div>
+        <h4>Adres</h4>
+        <p>Caferağa Mah. Ring Sokak No:14, Kadıköy / İstanbul (örnek adres — gerçek adresle güncellenecek)</p>
+        <a href="#" class="link">Yol Tarifi Al →</a>
+      </div>
+      <div class="cta-card reveal">
+        <div class="ph-icon"><svg><use href="#ic-clock"/></svg></div>
+        <h4>Çalışma Saatleri</h4>
+        <p>Hafta içi: 08:00 – 23:00<br>Hafta sonu: 09:00 – 21:00</p>
+        <a href="#" class="link js-wa" data-wa-text="Merhaba, müsait ders saatlerini öğrenebilir miyim?">Ders Saatlerini Sor →</a>
+      </div>
+    </div>
+
+    <div class="cta-map reveal">
+      <div class="ph ph--21-9">
+        <span class="ph-corner tl"></span><span class="ph-corner tr"></span><span class="ph-corner bl"></span><span class="ph-corner br"></span>
+        <div class="ph-body">
+          <div class="ph-icon"><svg><use href="#ic-pin"/></svg></div>
+          <div class="ph-label"><b>Görsel / Harita Alanı</b>Salon konumu için Google Maps yerleştirmesi buraya eklenecek</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo"><span class="dot"></span>KOBRA<span style="color:var(--text-mute); font-size:.85em; margin-left:.2rem;">KICKBOX</span></a>
+        <p>İstanbul Kadıköy merkezli kickbox &amp; performans akademisi. Başlangıçtan ringe, her seviyeye uygun antrenman programları.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg><use href="#ic-instagram"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg><use href="#ic-tiktok"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg><use href="#ic-youtube"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Sayfalar</h5>
+        <ul>
+          <li><a href="#programlar">Programlar</a></li>
+          <li><a href="#tesis">Tesis</a></li>
+          <li><a href="#egitmenler">Eğitmenler</a></li>
+          <li><a href="#uyelik">Üyelik</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Programlar</h5>
+        <ul>
+          <li><a href="#programlar">Kickbox Temel</a></li>
+          <li><a href="#programlar">Performans Kickbox</a></li>
+          <li><a href="#programlar">Fitness Kickbox</a></li>
+          <li><a href="#programlar">Çocuk &amp; Genç Kickbox</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>İletişim</h5>
+        <ul>
+          <li><a href="#" class="js-wa" data-wa-text="Merhaba, kickbox dersleri hakkında bilgi almak istiyorum."><svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:.4rem"><use href="#ic-whatsapp"/></svg>+90 542 580 66 92</a></li>
+          <li><a href="#"><svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:.4rem"><use href="#ic-mail"/></svg>info@kobrakickbox.com</a></li>
+          <li><a href="#iletisim"><svg style="width:14px;height:14px;display:inline;vertical-align:-2px;margin-right:.4rem"><use href="#ic-pin"/></svg>Kadıköy, İstanbul</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Kobra Kickbox Academy. Tüm hakları saklıdır.</span>
+      <span>Tasarım &amp; Geliştirme — Kobra Dijital</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="#" class="wa-float js-wa" data-wa-text="Merhaba, kickbox dersleri hakkında bilgi almak istiyorum." aria-label="WhatsApp ile iletişime geç">
+  <svg><use href="#ic-whatsapp"/></svg>
+</a>
+
+<script>
+  // ---- WhatsApp link builder ----
+  const WA_NUMBER = '905425806692';
+  document.querySelectorAll('.js-wa').forEach(el => {
+    const msg = el.getAttribute('data-wa-text') || 'Merhaba, kickbox dersleri hakkında bilgi almak istiyorum.';
+    el.setAttribute('href', 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg));
+    el.setAttribute('target', '_blank');
+    el.setAttribute('rel', 'noopener');
+  });
+
+  // ---- Sticky nav shadow ----
+  const nav = document.getElementById('siteNav');
+  const onScroll = () => {
+    if (window.scrollY > 24) nav.classList.add('is-scrolled');
+    else nav.classList.remove('is-scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ---- Mobile menu ----
+  const burger = document.getElementById('burgerBtn');
+  const closeBtn = document.getElementById('mobileClose');
+  const menu = document.getElementById('mobileMenu');
+  const openMenu = () => { menu.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+  const closeMenu = () => { menu.classList.remove('is-open'); document.body.style.overflow = ''; };
+  burger.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .15, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach((el, i) => {
+    el.style.transitionDelay = (Math.min(i % 4, 3) * 70) + 'ms';
+    io.observe(el);
+  });
+
+  // ---- Round timer countdown (3:00 -> 0:00 loop) ----
+  const clockEl = document.querySelector('.round-timer-inner .clock');
+  if (clockEl){
+    let total = 180;
+    const tick = () => {
+      total = total > 0 ? total - 1 : 180;
+      const m = String(Math.floor(total / 60)).padStart(2,'0');
+      const s = String(total % 60).padStart(2,'0');
+      clockEl.textContent = m + ':' + s;
+    };
+    setInterval(tick, 1000);
+  }
+
+  // ---- Footer year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
